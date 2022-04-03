@@ -41,7 +41,7 @@ describe("THXT contract", () => {
     });
 
     it("Should fail to mint with who has not minter role", async () => {
-      await expect(THXT.connect(nonowner).mint(addressee.address)).to
+      await expect(THXT.connect(nonowner).mint(owner.address)).to
         .revertedWith(
           "ERC721PresetMinterPauserAutoId: must have minter role to mint",
         );
