@@ -1,12 +1,13 @@
-// This is a script for deploying your contracts. You can adapt it to deploy
-// yours, or create new ones.
+import { artifacts, ethers, network } from "hardhat";
+import fs from "fs";
+import { Contract } from "ethers";
+
 async function main() {
-  // This is just a convenience check
   if (network.name === "hardhat") {
     console.warn(
       "You are trying to deploy a contract to the Hardhat Network, which" +
         "gets automatically created and destroyed every time. Use the Hardhat" +
-        " option '--network localhost'"
+        " option '--network localhost'",
     );
   }
 
@@ -14,12 +15,12 @@ async function main() {
   const [deployer] = await ethers.getSigners();
   console.log(
     "Deploying the contracts with the account:",
-    await deployer.getAddress()
+    await deployer.getAddress(),
   );
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
+  const Token = await ethers.getContractFactory("THXT");
   const token = await Token.deploy();
   await token.deployed();
 
@@ -29,8 +30,7 @@ async function main() {
   saveFrontendFiles(token);
 }
 
-function saveFrontendFiles(token) {
-  const fs = require("fs");
+function saveFrontendFiles(token: Contract) {
   const contractsDir = __dirname + "/../frontend/src/contracts";
 
   if (!fs.existsSync(contractsDir)) {
@@ -39,14 +39,14 @@ function saveFrontendFiles(token) {
 
   fs.writeFileSync(
     contractsDir + "/contract-address.json",
-    JSON.stringify({ Token: token.address }, undefined, 2)
+    JSON.stringify({ Token: token.address }, undefined, 2),
   );
 
-  const TokenArtifact = artifacts.readArtifactSync("Token");
+  const TokenArtifact = artifacts.readArtifactSync("THXT");
 
   fs.writeFileSync(
-    contractsDir + "/Token.json",
-    JSON.stringify(TokenArtifact, null, 2)
+    contractsDir + "/THXT.json",
+    JSON.stringify(TokenArtifact, null, 2),
   );
 }
 

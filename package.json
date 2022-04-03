@@ -6,7 +6,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "localnet": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.ts --network localhost"
   },
   "repository": {
     "type": "git",
@@ -14,7 +16,7 @@
   },
   "keywords": [
     "hardhat",
-    "ethereum",
+    "ethereum"
   ],
   "author": "yoshikouki",
   "bugs": {
