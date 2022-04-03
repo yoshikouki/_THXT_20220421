@@ -1,17 +1,18 @@
-const { expect } = require("chai");
+import { expect } from "chai";
+import { ethers } from "hardhat";
+import { Contract, ContractFactory } from "ethers";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 describe("THXT contract", () => {
-  let ThxtContract;
-  let THXT;
-  let owner;
-  let addr1;
-  let addr2;
-  let addrs;
+  let ThxtContractFactory: ContractFactory;
+  let THXT: Contract;
+  let owner: SignerWithAddress;
+  let addressee: SignerWithAddress;
 
   beforeEach(async () => {
-    [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
-    ThxtContract = await ethers.getContractFactory("THXT");
-    THXT = await ThxtContract.deploy();
+    [owner, addressee] = await ethers.getSigners();
+    ThxtContractFactory = await ethers.getContractFactory("THXT");
+    THXT = await ThxtContractFactory.deploy();
     await THXT.deployed();
   });
 
